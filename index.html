@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#172b4d">
+<title>每周五练｜训练记录</title>
+<style>
+:root{--bg:#f4f6fa;--card:#fff;--ink:#172b4d;--muted:#667085;--line:#e5e9f0;--blue:#315efb;--blue2:#eaf0ff;--green:#16845b;--orange:#a65a12;--red:#b42318;--radius:16px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#182230;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;padding-bottom:calc(24px + env(safe-area-inset-bottom))}
+header{background:var(--ink);color:#fff;padding:20px 16px 18px;position:sticky;top:0;z-index:5;box-shadow:0 3px 14px #172b4d22}
+.headrow{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1000px;margin:auto}
+h1{font-size:19px;margin:0;font-weight:750}.sub{font-size:12px;color:#cbd5e1;margin-top:5px}
+main{max-width:1000px;margin:16px auto;padding:0 12px}
+.toolbar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+button,select,input{font:inherit}button{border:0;border-radius:11px;padding:10px 13px;background:var(--blue);color:white;font-weight:650;cursor:pointer}
+button.secondary{background:#edf1f7;color:#26364f}button.ghost{background:transparent;color:inherit;border:1px solid #ffffff55;padding:8px 10px}
+button.small{padding:7px 9px;font-size:12px;border-radius:9px}button.danger{background:#fff0ef;color:var(--red)}
+select,.weekinput{border:1px solid var(--line);border-radius:10px;background:#fff;padding:9px 10px;color:#26364f}
+.weekbar{display:flex;align-items:center;gap:8px;flex:1;min-width:260px}
+.weekbar input{min-width:0;flex:1}
+.tabs{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:12px 0}
+.tab{background:#fff;color:#344054;border:1px solid var(--line);padding:10px 4px;border-radius:12px;text-align:center;font-size:12px;line-height:1.4}
+.tab strong{display:block;font-size:13px}.tab.active{background:var(--blue2);border-color:#9bb2ff;color:#2448c8}.tab.done:after{content:"✓";display:block;color:var(--green);font-weight:800}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:15px;margin-bottom:12px;box-shadow:0 2px 8px #172b4d08}
+.card h2{font-size:16px;margin:0 0 5px}.muted{color:var(--muted);font-size:12px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.stat{background:#f7f9fc;border-radius:12px;padding:11px}.stat b{font-size:20px;color:var(--ink);display:block}.stat span{font-size:11px;color:var(--muted)}
+.exercise{border:1px solid var(--line);border-radius:13px;margin-top:10px;overflow:hidden}
+.exhead{padding:12px;background:#fbfcfe;display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.exhead b{font-size:14px}.exmeta{font-size:11px;color:var(--muted);margin-top:4px}
+.exbody{padding:10px 12px}
+.setrow{display:grid;grid-template-columns:28px 1fr 1fr 1fr 1fr;gap:6px;align-items:center;margin:7px 0}
+.setrow .n{font-size:12px;color:var(--muted);text-align:center}
+.setrow input{width:100%;min-width:0;border:1px solid var(--line);border-radius:8px;padding:8px 5px;font-size:13px;background:white}
+.labels{display:grid;grid-template-columns:28px 1fr 1fr 1fr 1fr;gap:6px;color:var(--muted);font-size:10px;text-align:center}
+.exfoot{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:9px}
+textarea{width:100%;min-height:58px;border:1px solid var(--line);border-radius:10px;padding:9px;font:inherit;font-size:13px;resize:vertical}
+.pill{font-size:11px;border-radius:99px;padding:4px 8px;background:#eef2f7;color:#475467;white-space:nowrap}
+.rest{padding:22px;text-align:center;color:var(--muted);background:#fafbfc;border-radius:12px}
+.sectiontitle{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px;min-width:520px}th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left}th{color:var(--muted);font-weight:650;background:#fafbfc}
+input[type="date"]{max-width:100%}
+footer{max-width:1000px;margin:18px auto;padding:0 14px;color:var(--muted);font-size:11px;line-height:1.6}
+.hidden{display:none!important}
+@media(min-width:700px){main{padding:0 20px}.tabs{gap:9px}.tab{font-size:13px;padding:12px}.card{padding:18px}.setrow{grid-template-columns:36px 1fr 1fr 1fr 1fr;gap:9px}}
+@media(max-width:380px){.tab{font-size:10px}.tab strong{font-size:12px}.setrow{grid-template-columns:22px repeat(4,minmax(0,1fr));gap:4px}.setrow input{font-size:12px;padding:8px 3px}}
+</style>
+</head>
+<body>
+<header><div class="headrow"><div><h1>每周五练｜训练记录</h1><div class="sub">肩背优先 · 胸部辅助 · 腿臀维持 · 核心同步</div></div><button class="ghost" id="todayBtn">跳到今天</button></div></header>
+<main>
+  <div class="toolbar">
+    <div class="weekbar"><button class="secondary small" id="prevWeek">‹</button><input class="weekinput" type="date" id="weekDate" aria-label="选择所在周"><button class="secondary small" id="nextWeek">›</button></div>
+    <button class="secondary small" id="exportWeek">导出本周CSV</button>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <section class="card" id="dayPanel"></section>
+  <section class="card">
+    <div class="sectiontitle"><div><h2>周训练概览</h2><div class="muted">按当前选择周汇总已填写的训练记录</div></div><span class="pill" id="weekRange"></span></div>
+    <div class="stats">
+      <div class="stat"><b id="doneDays">0/5</b><span>已记录训练日</span></div>
+      <div class="stat"><b id="doneSets">0</b><span>已填写组数</span></div>
+      <div class="stat"><b id="avgRir">—</b><span>平均RIR</span></div>
+    </div>
+    <div class="tablewrap"><table><thead><tr><th>日期</th><th>训练主题</th><th>完成动作</th><th>已记录组数</th><th>平均RIR</th></tr></thead><tbody id="summaryRows"></tbody></table></div>
+  </section>
+  <section class="card">
+    <div class="sectiontitle"><div><h2>周与周对比</h2><div class="muted">选择一个动作，对比相邻两周的重量、次数与RIR</div></div></div>
+    <div class="toolbar" style="margin-top:12px">
+      <select id="compareExercise" style="flex:1;min-width:170px"></select>
+      <button class="secondary small" id="comparePrev">与上周比较</button>
+    </div>
+    <div id="comparison" class="muted">选择动作后显示对比。</div>
+  </section>
+  <section class="card">
+    <div class="sectiontitle"><div><h2>数据管理</h2><div class="muted">数据保存在当前浏览器本地；换设备前请导出备份。</div></div></div>
+    <div class="toolbar" style="margin-top:12px">
+      <button id="exportJSON">导出全部数据（JSON）</button>
+      <button class="secondary" id="importBtn">导入备份</button>
+      <button class="secondary" id="exportAllCSV">导出全部记录CSV</button>
+      <input type="file" id="importFile" accept=".json,application/json" class="hidden">
+    </div>
+    <div class="muted">点击训练日右上角“编辑动作计划”可新增、删除、替换动作，或将动作清单保存为以后每周的默认计划。导出的CSV可用Excel或Numbers打开。</div>
+  </section>
+</main>
+<footer>
+  使用说明：先选日期所在周，再点当天标签；每组填写实际重量、次数和RIR。点击“编辑动作计划”可替换动作、增删动作并保存为未来周默认计划。数据自动保存在当前浏览器。此HTML本身不提供云端同步或公开网址托管；若要跨手机、电脑同步，需要将数据放入云端服务，或自行部署并接入数据库。
+</footer>
+<script>
+const DAYS=["周一","周二","周三","周四","周五","周六","周日"];
+const PLAN=[
+{day:0,title:"胸部专项＋三头",items:[
+{name:"平板哑铃卧推",muscle:"胸大肌",sets:3,reps:"8–12",weight:"6 kg/手起步",rir:"2–3",note:"右肩代偿待观察；轻重量先检查轨迹，若明显前顶或疼痛则停止该动作。"},
+{name:"上斜哑铃卧推",muscle:"胸大肌上部",sets:3,reps:"8–12",weight:"轻重量测试",rir:"2–3",note:"右肩代偿未解决前不追重量；如动作不对称，减少或暂停。"},
+{name:"蝴蝶机夹胸",muscle:"胸大肌",sets:3,reps:"10–15",weight:"60 lbs（此前记录）",rir:"1–2",note:"肩前侧代偿明显时降低重量或停止。"},
+{name:"绳索三头下压",muscle:"肱三头肌",sets:3,reps:"10–15",weight:"60 lbs（此前记录）",rir:"1–2",note:"保持上臂稳定。"}]},
+{day:1,title:"肩部专项",items:[
+{name:"哑铃侧平举",muscle:"三角肌中束",sets:4,reps:"12–20",weight:"4 kg/手",rir:"1–3",note:"避免耸肩和借力。"},
+{name:"绳索单侧侧平举",muscle:"三角肌中束",sets:3,reps:"12–15",weight:"热身确定",rir:"1–3",note:"左右使用相同重量和次数，不额外给单侧加量。"},
+{name:"反向飞鸟",muscle:"三角肌后束",sets:3,reps:"12–15",weight:"50 lbs（按器械校准）",rir:"1–2",note:"动作控制优先。"}]},
+{day:2,title:"休息",items:[]},
+{day:3,title:"腿臀＋核心",items:[
+{name:"史密斯深蹲",muscle:"股四头肌、臀大肌",sets:3,reps:"10–12",weight:"总重15 kg（此前记录）",rir:"2–3",note:"记录挂片重量口径。"},
+{name:"史密斯罗马尼亚硬拉",muscle:"腘绳肌、臀大肌",sets:3,reps:"8–12",weight:"总重20 kg（此前记录）",rir:"2–3",note:"髋主导，背部中立。"},
+{name:"腿弯举",muscle:"腘绳肌",sets:3,reps:"10–15",weight:"100 lbs（此前记录）",rir:"1–2",note:"控制离心。"},
+{name:"腿屈伸",muscle:"股四头肌",sets:3,reps:"12–15",weight:"110 lbs（此前记录）",rir:"1–2",note:"避免甩动。"},
+{name:"绳索卷腹",muscle:"腹直肌",sets:3,reps:"12–15",weight:"热身确定",rir:"1–3",note:"骨盆卷起，不只用手臂下拉。"},
+{name:"侧平板支撑",muscle:"腹斜肌、核心",sets:2,reps:"30–45秒/侧",weight:"自重",rir:"技术稳定",note:"保持身体成直线。"}]},
+{day:4,title:"肩背强化",items:[
+{name:"哑铃侧平举",muscle:"三角肌中束",sets:4,reps:"12–20",weight:"4 kg/手",rir:"1–3",note:"中等强度，不做到动作变形。"},
+{name:"反向飞鸟",muscle:"三角肌后束",sets:3,reps:"12–15",weight:"50 lbs（按器械校准）",rir:"1–2",note:"避免耸肩。"},
+{name:"中立握高位下拉",muscle:"背阔肌",sets:3,reps:"10–12",weight:"70 lbs测试起点",rir:"2–3",note:"确认器械与原高位下拉阻力一致。"},
+{name:"胸托划船",muscle:"上背、背阔肌",sets:3,reps:"10–12",weight:"热身确定",rir:"2–3",note:"器械标重差异较大。"}]},
+{day:5,title:"休息",items:[]},
+{day:6,title:"背部专项＋二头",items:[
+{name:"高位下拉",muscle:"背阔肌",sets:4,reps:"8–12",weight:"70 lbs（此前记录）",rir:"2–3",note:"避免身体大幅后仰。"},
+{name:"坐姿划船",muscle:"背阔肌、菱形肌",sets:3,reps:"10–12",weight:"70 lbs（此前记录）",rir:"2–3",note:"避免耸肩和借力。"},
+{name:"胸托划船",muscle:"上背、斜方肌中束",sets:3,reps:"10–12",weight:"热身确定",rir:"2–3",note:"如与坐姿划船疲劳重复，可减至2组。"},
+{name:"直臂绳索下压",muscle:"背阔肌",sets:2,reps:"12–15",weight:"热身确定",rir:"1–2",note:"此前绳索下拉重量不直接套用。"},
+{name:"哑铃弯举",muscle:"肱二头肌、肱肌",sets:3,reps:"10–15",weight:"热身确定",rir:"1–2",note:"左右同重量、同次数。"}]}
+];
+const KEY="weeklyTrainingLog_v1";
+let store=loadStore(), selectedDay=0, selectedWeek=getMondayISO(new Date()), comparisonPrev=false;
+if(!store.customPlan)store.customPlan={};
+function planItems(day){return store.customPlan[day] || PLAN[day].items;}
+function resetWeekDay(day){let d=dayObj(day);d.items=planItems(day).map((it,idx)=>({...structuredClone(it),id:`${day}-${idx}`,setsData:Array.from({length:it.sets},()=>({weight:"",reps:"",rir:"",note:""}))}));save()}
+function loadStore(){try{return JSON.parse(localStorage.getItem(KEY))||{weeks:{}}}catch(e){return {weeks:{}}}}
+function save(){localStorage.setItem(KEY,JSON.stringify(store))}
+function getMondayISO(d){let x=new Date(d);x.setHours(12,0,0,0);let day=(x.getDay()+6)%7;x.setDate(x.getDate()-day);return fmt(x)}
+function fmt(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
+function addDays(iso,n){let d=new Date(iso+"T12:00:00");d.setDate(d.getDate()+n);return fmt(d)}
+function weekKey(){return selectedWeek}
+function dayDate(day){return addDays(selectedWeek,day)}
+function weekObj(key=weekKey()){if(!store.weeks[key])store.weeks[key]={days:{}};return store.weeks[key]}
+function dayObj(day,key=weekKey()){let w=weekObj(key);if(!w.days[day])w.days[day]={items:[],note:""};return w.days[day]}
+function initDay(day,key=weekKey()){
+ let d=dayObj(day,key);
+ if(!d.items.length && planItems(day).length){d.items=planItems(day).map((it,idx)=>({...structuredClone(it),id:`${day}-${idx}`,setsData:Array.from({length:it.sets},()=>({weight:"",reps:"",rir:"",note:""}))}));save()}
+}
+function render(){
+ document.getElementById("weekDate").value=selectedWeek;
+ document.getElementById("weekRange").textContent=selectedWeek+" 至 "+addDays(selectedWeek,6);
+ renderTabs();renderDay();renderSummary();renderCompareOptions();
+}
+function renderTabs(){
+ const el=document.getElementById("tabs");el.innerHTML="";
+ DAYS.forEach((d,i)=>{
+  initDay(i);let data=dayObj(i);let filled=data.items.reduce((a,it)=>a+(it.setsData||[]).filter(s=>s.weight||s.reps||s.rir).length,0);
+  let b=document.createElement("button");b.className="tab"+(i===selectedDay?" active":"")+(filled?" done":"");
+  b.innerHTML=`<strong>${d}</strong>${i===2||i===5?"休息":PLAN[i].title.replace("专项","").replace("强化","")}`;
+  b.onclick=()=>{selectedDay=i;render()};el.appendChild(b);
+ });
+}
+function renderDay(){
+ const el=document.getElementById("dayPanel"),p=PLAN[selectedDay];initDay(selectedDay);let d=dayObj(selectedDay);
+ let date=dayDate(selectedDay);
+ if(!planItems(selectedDay).length && !d.items.length){el.innerHTML=`<h2>${DAYS[selectedDay]}｜${p.title}</h2><div class="muted">${date}</div><div class="rest" style="margin-top:14px">今天是计划休息日。无需补练；可记录睡眠、恢复或备注。</div><label class="muted" style="display:block;margin-top:12px">今日备注</label><textarea id="dayNote" placeholder="例如：睡眠、疲劳、身体状态……"></textarea>`;document.getElementById("dayNote").value=d.note||"";document.getElementById("dayNote").oninput=e=>{d.note=e.target.value;save()};return}
+ let total=d.items.reduce((a,it)=>a+(it.setsData||[]).length,0),done=d.items.reduce((a,it)=>a+(it.setsData||[]).filter(s=>s.weight||s.reps||s.rir).length,0);
+ el.innerHTML=`<div class="sectiontitle"><div><h2>${DAYS[selectedDay]}｜${p.title}</h2><div class="muted">${date} · 训练记录 ${done}/${total} 组</div></div><button class="secondary small" id="editPlan">编辑动作计划</button></div><div class="stats"><div class="stat"><b>${d.items.length}</b><span>动作数</span></div><div class="stat"><b>${total}</b><span>计划组数</span></div><div class="stat"><b>${done}</b><span>已填写组数</span></div></div><div id="exercises"></div><label class="muted" style="display:block;margin-top:14px">当天训练备注</label><textarea id="dayNote" placeholder="例如：睡眠、精神状态、疼痛、动作感觉……"></textarea>`;
+ const ex=document.getElementById("exercises");
+ d.items.forEach((it,idx)=>{
+  const card=document.createElement("div");card.className="exercise";
+  card.innerHTML=`<div class="exhead"><div style="flex:1"><b>${escapeHTML(it.name)}</b><div class="exmeta">${escapeHTML(it.muscle)} · 目标 ${escapeHTML(it.reps)}次 · ${it.setsData.length}组</div></div><span class="pill">目标RIR ${escapeHTML(it.rir)}</span></div><div class="exbody"><div class="toolbar"><label class="muted">计划重量</label><input data-field="weight" class="weekinput" style="flex:1;min-width:100px" value="${escapeAttr(it.weight)}"><label class="muted">计划组数</label><input data-field="sets" type="number" min="1" max="10" class="weekinput" style="width:64px" value="${it.setsData.length}"></div><div class="labels"><span>组</span><span>实际重量</span><span>次数</span><span>RIR</span><span>备注</span></div><div class="setlist"></div><div class="exfoot"><span class="muted">${escapeHTML(it.note||"")}</span><button class="secondary small addset">＋加一组</button></div></div>`;
+  const setlist=card.querySelector(".setlist");
+  it.setsData.forEach((s,j)=>setlist.appendChild(makeSetRow(s,j,()=>{save();renderSummary()})));
+  card.querySelector('[data-field="weight"]').onchange=e=>{it.weight=e.target.value;save()};
+  card.querySelector('[data-field="sets"]').onchange=e=>{let n=Math.max(1,Math.min(10,Number(e.target.value)||1));while(it.setsData.length<n)it.setsData.push({weight:"",reps:"",rir:"",note:""});while(it.setsData.length>n)it.setsData.pop();save();renderDay();renderTabs();renderSummary()};
+  card.querySelector(".addset").onclick=()=>{it.setsData.push({weight:"",reps:"",rir:"",note:""});save();renderDay();renderTabs();renderSummary()};
+  ex.appendChild(card);
+ });
+ document.getElementById("dayNote").value=d.note||"";document.getElementById("dayNote").oninput=e=>{d.note=e.target.value;save()};
+ document.getElementById("editPlan").onclick=()=>showPlanEditor();
+}
+function showPlanEditor(){
+ let d=dayObj(selectedDay),el=document.getElementById("dayPanel");
+ el.innerHTML=`<div class="sectiontitle"><h2>编辑${DAYS[selectedDay]}训练计划</h2><button class="secondary small" id="backDay">返回记录</button></div><p class="muted">这里修改当前周的动作。可选择将动作清单设为以后每周的默认计划；历史周记录不会被覆盖。</p><div id="editorItems"></div><div class="toolbar" style="margin-top:12px"><button id="addExercise">＋新增动作</button><button class="secondary" id="saveTemplate">保存为今后每周默认计划</button></div>`;
+ document.getElementById("backDay").onclick=renderDay;
+ document.getElementById("addExercise").onclick=()=>{d.items.push({name:"新动作",muscle:"",sets:3,reps:"10–12",weight:"热身确定",rir:"2–3",note:"",setsData:Array.from({length:3},()=>({weight:"",reps:"",rir:"",note:""}))});save();showPlanEditor()};
+ document.getElementById("saveTemplate").onclick=()=>{store.customPlan[selectedDay]=d.items.map(it=>({name:it.name,muscle:it.muscle,sets:it.setsData.length,reps:it.reps,weight:it.weight,rir:it.rir,note:it.note}));save();alert("已设为未来周的默认动作计划。已创建的历史周记录保持不变。");};
+ const holder=document.getElementById("editorItems");
+ d.items.forEach((it,idx)=>{let card=document.createElement("div");card.className="exercise";card.style.padding="12px";
+ card.innerHTML=`<div class="sectiontitle"><b>动作 ${idx+1}</b><button class="small danger" data-delete>删除动作</button></div><div class="grid" style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px">${[["name","动作名称"],["muscle","目标肌群"],["reps","目标次数"],["weight","建议重量"],["rir","目标RIR"],["note","动作提示"]].map(([key,label])=>`<label><div class="muted">${label}</div><input data-key="${key}" value="${escapeAttr(it[key]||"")}" style="width:100%"></label>`).join("")}<label><div class="muted">正式组数</div><input type="number" data-key="sets" min="1" max="10" value="${it.setsData.length}" style="width:100%"></label></div>`;
+ card.querySelectorAll("[data-key]").forEach(inp=>inp.onchange=()=>{let k=inp.dataset.key;if(k==="sets"){let n=Math.max(1,Math.min(10,Number(inp.value)||1));while(it.setsData.length<n)it.setsData.push({weight:"",reps:"",rir:"",note:""});while(it.setsData.length>n)it.setsData.pop();}else it[k]=inp.value;save()});
+ card.querySelector("[data-delete]").onclick=()=>{if(confirm("删除这个动作及当前周对应的训练记录？")){d.items.splice(idx,1);save();showPlanEditor()}};
+ holder.appendChild(card);
+ });
+}
+function makeSetRow(s,j,changed){
+ const row=document.createElement("div");row.className="setrow";
+ row.innerHTML=`<span class="n">${j+1}</span><input placeholder="kg/lbs" aria-label="实际重量" value="${escapeAttr(s.weight)}"><input placeholder="次数" inputmode="decimal" aria-label="实际次数" value="${escapeAttr(s.reps)}"><input placeholder="RIR" inputmode="decimal" aria-label="RIR" value="${escapeAttr(s.rir)}"><input placeholder="备注" aria-label="组备注" value="${escapeAttr(s.note)}">`;
+ [...row.querySelectorAll("input")].forEach((inp,i)=>inp.onchange=()=>{s[["weight","reps","rir","note"][i]]=inp.value;changed()});
+ return row;
+}
+function renderSummary(){
+ const body=document.getElementById("summaryRows");body.innerHTML="";let allR=[],doneSets=0,doneDays=0;
+ PLAN.forEach((p,i)=>{let d=dayObj(i),sets=0,exDone=0,rs=[];
+ d.items.forEach(it=>{let n=(it.setsData||[]).filter(s=>s.weight||s.reps||s.rir).length;sets+=n;if(n)exDone++;(it.setsData||[]).forEach(s=>{if(s.rir!==""&&!isNaN(Number(s.rir)))rs.push(Number(s.rir))})});
+ doneSets+=sets;if(sets)doneDays++;
+ allR.push(...rs);let tr=document.createElement("tr");tr.innerHTML=`<td>${DAYS[i]}<br><span class="muted">${dayDate(i)}</span></td><td>${p.title}</td><td>${exDone}/${d.items.length}</td><td>${sets}</td><td>${rs.length?(rs.reduce((a,b)=>a+b,0)/rs.length).toFixed(1):"—"}</td>`;body.appendChild(tr);
+ });
+ document.getElementById("doneDays").textContent=`${doneDays}/5`;document.getElementById("doneSets").textContent=doneSets;document.getElementById("avgRir").textContent=allR.length?(allR.reduce((a,b)=>a+b,0)/allR.length).toFixed(1):"—";
+}
+function renderCompareOptions(){
+ const sel=document.getElementById("compareExercise"),current=sel.value;
+ let names=[...new Set(PLAN.flatMap(p=>p.items.map(i=>i.name)))];sel.innerHTML=names.map(n=>`<option>${escapeHTML(n)}</option>`).join("");if(names.includes(current))sel.value=current;
+ renderComparison();
+}
+function findExercise(key,name){
+ let w=store.weeks[key];if(!w)return [];
+ let out=[];Object.entries(w.days||{}).forEach(([day,d])=>(d.items||[]).filter(i=>i.name===name).forEach(it=>(it.setsData||[]).forEach((s,idx)=>{if(s.weight||s.reps||s.rir)out.push({day:Number(day),set:idx+1,...s})})));
+ return out;
+}
+function renderComparison(){
+ let name=document.getElementById("compareExercise").value;if(!name)return;
+ let prev=addDays(selectedWeek,-7),a=findExercise(prev,name),b=findExercise(selectedWeek,name),el=document.getElementById("comparison");
+ const fmtRows=(arr)=>arr.length?arr.map(x=>`<tr><td>${DAYS[x.day]} 第${x.set}组</td><td>${escapeHTML(x.weight||"—")}</td><td>${escapeHTML(x.reps||"—")}</td><td>${escapeHTML(x.rir||"—")}</td></tr>`).join(""):`<tr><td colspan="4" class="muted">暂无记录</td></tr>`;
+ el.innerHTML=`<div class="muted" style="margin:8px 0">${prev} 对比 ${selectedWeek}</div><div class="tablewrap"><table><thead><tr><th>周次/组次</th><th>重量</th><th>次数</th><th>RIR</th></tr></thead><tbody><tr><th colspan="4">上周</th></tr>${fmtRows(a)}<tr><th colspan="4">本周</th></tr>${fmtRows(b)}</tbody></table></div>`;
+}
+function csvEscape(v){return '"'+String(v??"").replaceAll('"','""')+'"'}
+function exportCSV(key=weekKey(),all=false){
+ let rows=[["日期","星期","动作","组次","计划重量","实际重量","目标次数","实际次数","RIR","组备注","训练备注"]];
+ let keys=all?Object.keys(store.weeks).sort():[key];
+ keys.forEach(k=>{let w=store.weeks[k];if(!w)return;Object.entries(w.days||{}).forEach(([day,d])=>(d.items||[]).forEach(it=>(it.setsData||[]).forEach((s,i)=>rows.push([addDays(k,Number(day)),DAYS[Number(day)],it.name,i+1,it.weight,s.weight,it.reps,s.reps,s.rir,s.note,d.note||""]))));});
+ let blob=new Blob(["\ufeff"+rows.map(r=>r.map(csvEscape).join(",")).join("\r\n")],{type:"text/csv;charset=utf-8"});
+ download(blob,all?"全部训练记录.csv":`训练记录_${key}.csv`);
+}
+function download(blob,name){let a=document.createElement("a"),url=URL.createObjectURL(blob);a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function escapeHTML(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function escapeAttr(s){return escapeHTML(s)}
+document.getElementById("weekDate").onchange=e=>{selectedWeek=getMondayISO(new Date(e.target.value+"T12:00:00"));render()};
+document.getElementById("prevWeek").onclick=()=>{selectedWeek=addDays(selectedWeek,-7);render()};
+document.getElementById("nextWeek").onclick=()=>{selectedWeek=addDays(selectedWeek,7);render()};
+document.getElementById("todayBtn").onclick=()=>{let now=new Date();selectedWeek=getMondayISO(now);selectedDay=(now.getDay()+6)%7;render()};
+document.getElementById("exportWeek").onclick=()=>exportCSV();
+document.getElementById("exportAllCSV").onclick=()=>exportCSV("",true);
+document.getElementById("exportJSON").onclick=()=>download(new Blob([JSON.stringify(store,null,2)],{type:"application/json"}),"训练记录完整备份.json");
+document.getElementById("importBtn").onclick=()=>document.getElementById("importFile").click();
+document.getElementById("importFile").onchange=e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!x.weeks)throw Error("格式不正确");if(confirm("导入将合并并覆盖同周已有数据，是否继续？")){store=x;save();render();alert("导入成功")}}catch(err){alert("导入失败："+err.message)}};r.readAsText(f);e.target.value=""};
+document.getElementById("compareExercise").onchange=renderComparison;
+document.getElementById("comparePrev").onclick=()=>{renderComparison()};
+selectedDay=(new Date().getDay()+6)%7;render();
+</script>
+</body>
+</html>
